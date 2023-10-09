@@ -1,0 +1,46 @@
+<div class="grid mt-2">
+    <div class="col-12 mt-5 md:col-6 md:col-offset-3 md:mt-8">
+        <div class="mt-2 flex justify-content-center">
+            <p-panel [header]="currTask.id ? 'Edit task' : 'Create task'" class="mt-7">
+                <mat-card-content>
+
+                    <!-- begin of the form -->
+                    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+                        <div class="flex flex-column">
+                            <div class="mt-2">
+                                <span class="p-float-label">
+
+                                    <!-- when the content of the name input changes the curr data is stored
+                                    in localstorage -->
+                                    <input (change)="saveTaskOnLocalStorage()" required pInputText id="name"
+                                        formControlName="name" style="width: 500px;" />
+                                    <label htmlFor="name">Task Name</label>
+                                </span>
+
+                                <!-- error message presented when the task name has not the min required length -->
+                                <span *ngIf="checkNameFieldIsValid()" class="form-text text-red-500 ml-1 my-6">
+                                    {{getNameFieldError()}}
+                                </span>
+                            </div>
+
+                            <!-- switch input to define if the task is completed or not -->
+                            <div class="flex mt-3 align-content-center">
+                                <label class="mr-4">Completed?</label>
+                                <p-inputSwitch (onChange)="saveTaskOnLocalStorage()"
+                                    formControlName="completed"></p-inputSwitch>
+                            </div>
+
+                            <div class="mt-2">
+                                <!-- submit button -->
+                                <button mat-flat-button color="primary" type="submit">
+                                    <mat-icon>save</mat-icon>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </mat-card-content>
+            </p-panel>
+        </div>
+    </div>
+</div>
